@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// Represents a single bar in the chart.
 class ChartBar extends StatelessWidget {
+  /// Constructs a [ChartBar] widget.
   const ChartBar({
-    super.key,
+    Key? key,
     required this.fill,
-  });
+  }) : super(key: key);
 
+  /// The fill value of the chart bar.
   final double fill;
 
   @override
