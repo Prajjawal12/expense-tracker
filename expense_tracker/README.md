@@ -2,15 +2,24 @@
 
 A minimalistic expense tracking app built using Flutter Framework
 
-## Getting Started
+![Light Theme](assets/readme/light_theme.png) ![Dark Theme](assets/readme/dark_theme.png)
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+To install this app in your local system,first clone the repository.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+  git clone [repository_link]
+  cd [project_name]
+  flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ScreenShots
+
+![Assets With Description](assets/readme/expense_with_description.png) ![Some Entries](assets/readme/expense_example_entries.png) ![List Of Expenses](assets/readme/expense_with_description.png)
+
+## Technologies Used
+
+- Flutter for UI
+- Bloc for State Management
+- Shared Preferencs to make the expense items persist
