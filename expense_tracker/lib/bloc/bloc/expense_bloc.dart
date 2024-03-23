@@ -18,7 +18,6 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
 
   /// Constructs an instance of [ExpenseBloc].
   ExpenseBloc({required this.sharedPreferences}) : super(ExpenseInitial()) {
-    on<LoadExpenses>(_mapLoadExpensesToState);
     on<AddExpense>(_mapAddExpenseToState);
     on<DeleteExpense>(_mapDeleteExpenseToState);
   }
@@ -36,10 +35,9 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
             title: json['title'],
             amount: json['amount'],
             date: DateTime.parse(json['date']),
-            currency: null,
-            description: '',
-            category: Category.food,
-            // Add other fields as needed
+            currency: json['currency'],
+            description: json['description'],
+            category: json['category'],
           );
         }).toList();
         emit(ExpensesLoaded(expenses: expenses));
@@ -91,8 +89,9 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
           'title': expense.title,
           'amount': expense.amount,
           'date': expense.date.toIso8601String(),
-          'category': expense.category,
-          'currency': expense.currency
+          'category': expense.category.name,
+          'currency': expense.currency.toString(),
+          'description': expense.description.toString(),
         };
         return jsonEncode(json);
       }).toList();

@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:expense_tracker/bloc/bloc/expense_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Widget for managing and displaying expenses.
 class Expenses extends StatefulWidget {
   const Expenses({Key? key}) : super(key: key);
 
@@ -28,7 +27,6 @@ class _ExpensesState extends State<Expenses> {
     _initializeDependencies();
   }
 
-  /// Initializes necessary dependencies for the widget.
   Future<void> _initializeDependencies() async {
     _prefs = await SharedPreferences.getInstance();
     _expenseBloc = context.read<ExpenseBloc>();
@@ -46,7 +44,6 @@ class _ExpensesState extends State<Expenses> {
     _expenseBloc.add(LoadExpenses());
   }
 
-  /// Fetches expenses from SharedPreferences.
   Future<List<Expense>> _fetchExpenses() async {
     final jsonStringList = _prefs.getStringList('expenses');
     if (jsonStringList != null) {
@@ -79,7 +76,6 @@ class _ExpensesState extends State<Expenses> {
     }
   }
 
-  /// Opens the overlay to add a new expense.
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       useSafeArea: true,
@@ -91,12 +87,10 @@ class _ExpensesState extends State<Expenses> {
     );
   }
 
-  /// Adds a new expense.
   void _addExpense(Expense expense) {
     _expenseBloc.add(AddExpense(expense));
   }
 
-  /// Removes an expense.
   void _removeExpense(Expense expense) {
     _expenseBloc.add(DeleteExpense(expense));
   }
@@ -170,12 +164,10 @@ class _ExpensesState extends State<Expenses> {
     );
   }
 
-  /// Calculates the total expenses.
   double _calculateTotalExpenses(List<Expense> expenses) {
     return expenses.fold(0, (total, expense) => total + expense.amount);
   }
 
-  /// Calculates the expenses per category.
   Map<Category, double> _calculateExpensesPerCategory(List<Expense> expenses) {
     final Map<Category, double> expensesPerCategory = {};
     expenses.forEach((expense) {
@@ -186,7 +178,6 @@ class _ExpensesState extends State<Expenses> {
     return expensesPerCategory;
   }
 
-  /// Builds the main content based on the screen width.
   Widget _buildContent(List<Expense> expenses, double totalExpenses,
       Map<Category, double> expensesPerCategory) {
     final width = MediaQuery.of(context).size.width;
@@ -230,7 +221,6 @@ class _ExpensesState extends State<Expenses> {
     return mainContent;
   }
 
-  /// Builds the widget for displaying total expenses.
   Widget _buildTotalExpenses(double totalExpenses) {
     return Text(
       'Total Expenses: \$${totalExpenses.toStringAsFixed(2)}',
@@ -238,7 +228,6 @@ class _ExpensesState extends State<Expenses> {
     );
   }
 
-  /// Builds the widget for displaying expenses per category.
   Widget _buildExpensesPerCategory(Map<Category, double> expensesPerCategory) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,14 +244,12 @@ class _ExpensesState extends State<Expenses> {
     );
   }
 
-  /// Builds the widget for displaying a loading indicator.
   Widget _buildLoading() {
     return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  /// Builds the widget for displaying an error message.
   Widget _buildError(String message) {
     return Center(
       child: Text('Error: $message'),
